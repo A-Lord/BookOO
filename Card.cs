@@ -3,39 +3,25 @@
     public class Card
     {
         public CardColor _Color { get; }
-        public string _rank { get; } = "";
-        public Card(string inColor, int rank)
+        public  CardRank _rank { get; }
+        public Card(CardColor inColor, CardRank rank) //tar i mot enum cardcolor och rank när man skapar ett kort.
         {
-            CardColor isInColor;
-            if (CardColor.TryParse(inColor, out isInColor))
-            {
-                _Color = isInColor;
-            }
-            if (rank < 10)
-                _rank = ((CardRank)rank).ToString();
-            if (rank < 14 & rank > 9 )
-            {
-                rank -= 10;
-                CardSymbols cardSymbols = new CardSymbols(rank);
-                _rank = cardSymbols.GetCardSmybol();
-            }
+            _Color = inColor;
+            _rank = rank;
         }
-    }
-    public class CardSymbols
-    {
-        public string _cardSymbol { get; } = "";
-        private string[] specialSymbols = new string[] { "$", "%", "^", "&" };
-        public CardSymbols(int sNumber)
-        {
-            _cardSymbol = specialSymbols[sNumber];
-        }
-        public string GetCardSmybol()
-        {
-            return _cardSymbol;
-        }
-    }
+        //private string[] specialSymbols = new string[] { "$", "%", "^", "&" };
+        // Första iterationen sparade CardRank i en string och sen en if sats om
+        //CardRank's index var över 9 då bytes texten ut mot rätt symbol och jag 
+        // satten en public bool IsSymbol som då också bytes till true. 
+
+        //kör man symbolCheck på ett kort får man true om den är symbol annars false. 
+        public bool SymbolCheck => _rank == CardRank.DollarSign || _rank == CardRank.Precent || _rank == CardRank.Ampersand || _rank == CardRank.Caret;
+      
+    }   
+    // enum för varje kort färg och sen en för alla symbolerna i textformat. special symboler går inte att spara som enum
+    // så $ % går inte att använda här.
     public enum CardColor { Red, Green, Blue, Yellow }
-    public enum CardRank { One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten }
+    public enum CardRank { One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten , DollarSign , Precent , Caret , Ampersand}
 }
 
 
