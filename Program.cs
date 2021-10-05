@@ -1,6 +1,29 @@
 ﻿using System;
 using BookOO;
 
+Console.WriteLine("hej Skriv ditt start lösenord för dörren");
+var coden = int.Parse(Console.ReadLine());
+Door superDoor = new Door(coden);
+while (true)
+{
+    Console.Clear();
+    superDoor.DoorStatusText();
+    Console.WriteLine("Vad vill du göra med dörren?");
+    Console.WriteLine("1. open\n 2 Close \n 3 Lock \n 4 Unlock \n 5 byta lösenord");
+    
+    coden = int.Parse(Console.ReadLine());
+    if (coden == 5)
+    {
+        superDoor.ChangeCode();
+    }
+    else
+    {
+    coden--;
+    DoorLock inputState = (DoorLock)coden;
+    inputState = superDoor.UseDoor(inputState);
+    }
+}
+superDoor.ChangeCode();
 
 Point first = new Point(2, 3);
 Point second = new Point(-4, 0);
